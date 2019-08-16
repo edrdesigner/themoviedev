@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import colors from './colors';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,9 +16,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     text-rendering: optimizeLegibility !important;
     -webkig-font-smoothing: antialiased !important;
-    background: #181818;
+    background: ${colors.lightbg};
     font-family: 'Montserrat', sans-serif;
-    color: #FFF;
+    color: ${colors.dark};
   }
 
   button {
