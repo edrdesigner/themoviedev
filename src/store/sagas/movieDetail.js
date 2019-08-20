@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import api from '~/service/api';
+import MovieResource from '~/resources/MovieResource';
 
 import { Creators as MovieDetailActions } from '../ducks/movieDetail';
 import { Creators as ErrorActions } from '../ducks/error';
@@ -7,8 +7,8 @@ import { Creators as ErrorActions } from '../ducks/error';
 export function* getMovieDetail(action) {
   try {
     const response = yield call(
-      api.get,
-      `/playlists/${action.payload.id}?_embed=songs`
+      MovieResource.getDetails,
+      action.payload.id,
     );
     yield put(MovieDetailActions.getMovieDetailSuccess(response.data));
   } catch (err) {
