@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import error from './error';
 import moviesDiscover from './moviesDiscover';
-import movieDetail from './movieDetail';
+import movieSearch from './movieSearch';
 
 export default combineReducers({
   error,
   moviesDiscover,
-  movieDetail,
+  movieSearch,
 });

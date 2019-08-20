@@ -1,25 +1,28 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import DiscoverMovies from '~/components/DiscoverMovies';
 import SearchBox from '~/components/SearchBox';
 import { Container } from './styles';
 import { Creators as MoviesDiscoverActions } from '~/store/ducks/moviesDiscover';
 
-export default function Main({ searchResult }) {
+export default function Main() {
   const newMovies = useSelector(state => state.moviesDiscover);
+  const searchResult = useSelector(state => {
+    if (state.movieSearch && state.movieSearch.data.results) {
+      return state.movieSearch.data.results;
+    }
+    return [];
+  });
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getDiscovery = () => {
-      return dispatch(MoviesDiscoverActions.getMoviesDiscoverRequest());
-    };
-    getDiscovery();
+    dispatch(MoviesDiscoverActions.getMoviesDiscoverRequest());
   }, [dispatch]);
 
   function renderMovies() {
-    if (searchResult) {
-      return <div>Search result</div>;
+    if (searchResult && searchResult.length > 0) {
+      return <DiscoverMovies items={searchResult || []} />;
     }
 
     return (
@@ -37,8 +40,3 @@ export default function Main({ searchResult }) {
     </Container>
   );
 }
-
-Main.propTypes = {
-  searchResult: PropTypes.array,
-  error: PropTypes.object,
-};

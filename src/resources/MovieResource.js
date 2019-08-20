@@ -9,7 +9,7 @@ export default class MovieResource {
   }
 
   static fetch(query) {
-    return api.get('search/movie/', {
+    return api.get('search/movie', {
       params: { api_key: config.api.key, query },
     });
   }
