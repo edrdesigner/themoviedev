@@ -11,27 +11,23 @@ export default function Main({searchResult}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    function getDiscovery() {
-      return handleMoviesDiscoverRequest();
+    const getDiscovery = () => {
+      return dispatch(MoviesDiscoverActions.getMoviesDiscoverRequest());
     }
     getDiscovery();
-  }, []);
-
-  function handleMoviesDiscoverRequest() {
-    return dispatch(MoviesDiscoverActions.getMoviesDiscoverRequest());
-  }
+  }, [dispatch]);
 
   function renderMovies() {
     if (searchResult) {
       return (
         <div>
-          Search result;
+          Search result
         </div>
-      )
+      );
     }
 
     return (
-      <DiscoverMovies items={newMovies.data && newMovies.data.results || []} loading={newMovies.loading} />
+      <DiscoverMovies items={newMovies.data.results || []} loading={newMovies.loading} />
     )
   }
 
@@ -44,11 +40,6 @@ export default function Main({searchResult}) {
 }
 
 Main.propTypes = {
-  getFeaturedMovies: PropTypes.func,
-  newMovies: PropTypes.shape({
-    data: PropTypes.object,
-    loading: PropTypes.bool,
-  }),
   searchResult: PropTypes.array,
   error: PropTypes.object
 };
