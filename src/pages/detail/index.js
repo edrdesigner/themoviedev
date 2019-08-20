@@ -1,40 +1,68 @@
-import React from 'react';
-import config from '~/config'
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
+import config from '~/config';
+import MovieResource from '~/resources/MovieResource';
+import Loading from '~/components/Loading';
 import { Container, PosterBackground, MovieData, MovieDetails } from './styles';
 
-export default function Detail({movieDetail = {}, getMovieDetail}) {
+export default function Detail({ match }) {
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchMovieDetail(id) {
+      try {
+        setLoading(true);
+        const { data } = await MovieResource.getDetails(id);
+        setMovie(data);
+      } catch (error) {
+        window.console.warn(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchMovieDetail(match.params.id);
+  }, [match.params.id]);
+
   return (
     <Container>
-      <PosterBackground>
-        <MovieData>
-          <img src={config.image.placeholderUrl} alt="movi" />
-          <MovieDetails>
-            <h2>Titulo</h2>
-            <strong>5 stars</strong>
-            <ul className="detailsList">
-                <li><span className="bold">Release date:</span> {movieDetail.releaseDate} </li>
-                <li><span className="bold">Rating: </span> {movieDetail.voteAverage} </li>
-                <li><span className="bold">Vote count: </span> {movieDetail.voteCount} </li>
-                <li><span className="bold">Genres: </span>{movieDetail.genre}</li>
-            </ul>
-            <p>
-              bio
-            </p>
-          </MovieDetails>
-        </MovieData>
-      </PosterBackground>
+      {loading ? (
+        <Loading />
+      ) : (
+        <PosterBackground>
+          <MovieData>
+            <img
+              src={`${config.image.moviePosterUrl}/${movie.poster_path}`}
+              alt={movie.title}
+            />
+            <MovieDetails>
+              <h2>{movie.title}</h2>
+              <strong>{movie.vote_average}</strong>
+              <ul className="detailsList">
+                <li>
+                  <span className="bold">Release date: </span>
+                  {movie.release_date}
+                </li>
+                <li>
+                  <span className="bold">Genres: </span>
+                  {movie.genres &&
+                    movie.genres.map(genre => <span>{genre.name} </span>)}
+                </li>
+              </ul>
+              <p>{movie.overview}</p>
+            </MovieDetails>
+          </MovieData>
+        </PosterBackground>
+      )}
     </Container>
   );
 }
 
 Detail.propTypes = {
-  movieDetail: PropTypes.object,
-  getMovieDetails: PropTypes.func,
   match: PropTypes.shape({
     params: PropTypes.shape({
-        id: PropTypes.string,
-    })
-  })
-}
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};

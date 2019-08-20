@@ -25,6 +25,7 @@ export const MovieData = styled.div`
     margin-right: 20px;
   }
 `;
+
 export const MovieDetails = styled.div`
   text-align: left;
 
@@ -45,7 +46,7 @@ export const MovieDetails = styled.div`
     list-style: none;
     li {
       font-size: 14px;
-      color: ${colors.dark}
+      color: ${colors.dark};
     }
   }
 

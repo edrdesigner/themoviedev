@@ -27,11 +27,10 @@ export const MovieList = styled.ul`
 
   li footer {
     flex: 1;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #eee;
     padding: 15px 20px;
     text-align: left;
-
   }
 
   li footer strong {
@@ -64,17 +63,17 @@ export const MovieList = styled.ul`
     margin-top: 5px;
     display: flex;
     height: 30px;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0, 0.05);
-    background: #FFF;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+    background: #fff;
     align-items: center;
     justify-content: center;
-    background: ${colors.primary}
+    background: ${colors.primary};
 
     a {
       cursor: pointer;
       font-size: 14px;
       text-decoration: none;
-      color: #FFF;
+      color: ${colors.white};
       font-weight: bold;
     }
   }
