@@ -6,6 +6,7 @@ import SearchResultMovies from '~/components/SearchResult';
 import SearchBox from '~/components/SearchBox';
 import { Container } from './styles';
 import { Creators as MoviesDiscoverActions } from '~/store/ducks/moviesDiscover';
+import { Creators as MovieSearchActions } from '~/store/ducks/movieSearch';
 
 export default function Main() {
   const [ratingValue, setRatingValue] = useState(null);
@@ -48,6 +49,10 @@ export default function Main() {
     }
 
     fetchMovies();
+
+    return function resetSearch() {
+      dispatch(MovieSearchActions.getMovieSearchReset());
+    };
   }, [dispatch]);
 
   function handleRatingSearch(value) {

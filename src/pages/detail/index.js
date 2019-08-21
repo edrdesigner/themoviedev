@@ -48,7 +48,9 @@ export default function Detail({ match }) {
                 <li>
                   <span className="bold">Genres: </span>
                   {movie.genres &&
-                    movie.genres.map(genre => <span>{genre.name} </span>)}
+                    movie.genres.map(genre => (
+                      <span key={genre.name}>{genre.name} </span>
+                    ))}
                 </li>
               </ul>
               <p>{movie.overview}</p>
