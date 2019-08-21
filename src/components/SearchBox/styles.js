@@ -55,4 +55,5 @@ export const StartSearch = styled.div`
   font-size: 12px;
   color: ${colors.dark};
   padding-left: 10px;
+  min-width: 200px;
 `;

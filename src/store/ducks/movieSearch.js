@@ -7,16 +7,17 @@ export const Types = {
 const INITIAL_STATE = {
   data: {},
   loading: false,
+  searching: false,
 };
 
 export default function movieSearch(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.GET_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, searching: true };
     case Types.GET_SUCCESS:
       return { ...state, loading: false, data: action.payload.data };
     case Types.GET_RESET_SEARCH:
-      return { ...state, loading: false, data: [] };
+      return { ...state, loading: false, searching: false, data: [] };
     default:
       return state;
   }

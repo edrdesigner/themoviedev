@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import config from '~/config';
+import formatDateUtil from '~/util/formatDate';
 import MovieResource from '~/resources/MovieResource';
 import Loading from '~/components/Loading';
 import { Container, PosterBackground, MovieData, MovieDetails } from './styles';
@@ -42,7 +43,7 @@ export default function Detail({ match }) {
               <ul className="detailsList">
                 <li>
                   <span className="bold">Release date: </span>
-                  {movie.release_date}
+                  {formatDateUtil(movie.release_date)}
                 </li>
                 <li>
                   <span className="bold">Genres: </span>
